@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>{% block title %}
+        Secret Agent Agency
+    {% endblock %}</title>
 </head>
 <body>
+{% block content %}
 
+{% endblock %}
+{% block extrajs %}
+
+{% endblock %}
 </body>
 </html>
