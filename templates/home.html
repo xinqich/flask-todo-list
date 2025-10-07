@@ -9,6 +9,7 @@
             <li>
                 <b>{{ agent.codename }}</b>
                 <ul>
+                    <li>Personal id: {{ agent.id }}</li>
                     <li>Phone (for emergency calls): {{ agent.phone }}</li>
                     <li>Email (for encrypted messages): {{ agent.email }}</li>
                     <li>Access level: {% if agent.access == 0 %}

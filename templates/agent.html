@@ -5,6 +5,7 @@
 {% block content %}
     <h1><b>Info about: {{ agent.codename }}</b></h1>
     <ul>
+        <li>Personal id: {{ agent.id }}</li>
         <li>Phone (for emergency calls): {{ agent.phone }}</li>
         <li>Email (for encrypted messages): {{ agent.email }}</li>
         <li>
