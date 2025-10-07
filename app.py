@@ -26,6 +26,12 @@ with app.app_context():
     db.create_all()
 
 
+# <------ Routes ------>
+@app.route("/")
+def handle_agents():
+    agents = Agents.query.all()
+    return render_template("home.html", agents=agents)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
