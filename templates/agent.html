@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Info about: {{ agent.codename }}</title>
+</head>
+<body>
+<h1><b>Info about: {{ agent.codename }}</b></h1>
+<ul>
+    <li>Phone (for emergency calls): {{ agent.phone }}</li>
+    <li>Email (for encrypted messages): {{ agent.email }}</li>
+    <li>
+        Access level:
+        {% if agent.access == 0 %}
+        Standart
+        {% endif %}
+        {% if agent.access == 1 %}
+            Secret
+        {% endif %}
+        {% if agent.access == 2 %}
+            Super secret
+        {% endif %}
+    </li>
+</ul>
+</body>
+</html>
