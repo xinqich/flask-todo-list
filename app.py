@@ -33,6 +33,41 @@ def handle_agents():
     return render_template("home.html", agents=agents)
 
 
+@app.route("/add", methods=["GET", "POST"])
+def handle_add():
+    if request.method == "POST":
+        agent_data = request.form.to_dict()
+        new_agent = Agents(
+            codename=agent_data["codename"],
+            email=agent_data["email"],
+            phone=agent_data["phone"],
+            access=agent_data["access"],
+        )
+        db.session.add(new_agent)
+        db.session.commit()
+        return redirect("/")
+    else:
+        return render_template("add.html")
+
+
+@app.route("/edit/<int:agent_id>", methods=["GET", "POST"])
+def handle_edit(agent_id):
+    if request.method == 'POST':
+        Agents.query.filter_by(id=agent_id).update(request.form.to_dict())
+        db.session.commit()
+        return redirect('/')
+    else:
+        agent = Agents.query.get_or_404(agent_id)
+        return render_template("edit.html", agent=agent)
+
+
+@app.route("/agent/<int:agent_id>")
+def handle_agent_info(agent_id):
+    agent = Agents.query.get_or_404(agent_id)
+    return render_template("agent.html", agent=agent)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
