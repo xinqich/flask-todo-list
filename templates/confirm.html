@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}
+    Confirmation
+{% endblock %}
+{% block content %}
+    <form action="/confirm/{{ agent.id }}" method="post">
+        <p>Are you sure you want to delete all info about: {{ agent.codename }}? This action can't be reversed.</p>
+        <button type="submit" value="1" name="confirm">Yes</button>
+        <button type="submit" value="0" name="confirm">No</button>
+    </form>
+{% endblock %}
