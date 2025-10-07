@@ -67,6 +67,14 @@ def handle_agent_info(agent_id):
     return render_template("agent.html", agent=agent)
 
 
+@app.route("/execute")
+def handle_execute():
+    con = db.engine.connect()
+    con.execute(text('''
+        DELETE FROM agents where id = 4 or id = 5
+    '''))
+    con.commit()
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)
