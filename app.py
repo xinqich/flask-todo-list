@@ -60,6 +60,23 @@ def handle_edit(agent_id):
         agent = Agents.query.get_or_404(agent_id)
         return render_template("edit.html", agent=agent)
 
+@app.route('/delete/<int:agent_id>')
+def handle_delete(agent_id):
+    return redirect(f'/confirm/{agent_id}')
+
+
+@app.route('/confirm/<int:agent_id>', methods=['GET', 'POST'])
+def confirm(agent_id):
+    agent = Agents.query.get_or_404(agent_id)
+    if request.method == 'GET':
+        return render_template('confirm.html', agent=agent)
+    elif request.method == 'POST':
+        r = bool(int(request.form.get('confirm')))
+        if r:
+            db.session.delete(agent)
+            db.session.commit()
+        return redirect('/')
+
 
 @app.route("/agent/<int:agent_id>")
 def handle_agent_info(agent_id):
