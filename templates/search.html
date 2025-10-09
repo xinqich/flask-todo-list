@@ -27,6 +27,11 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>We could find anything matching your filters. Try a different search.</p>
+        {% with messages = get_flashed_messages() %}
+        	{% if messages %}
+                <p>We could find anything matching your filters. Try a different search.</p>
+                <p>Your search: {{ messages[0] }}</p>
+        	{% endif %}
+        {% endwith %}
     {% endif %}
 {% endblock %}

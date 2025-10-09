@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 
@@ -96,6 +96,7 @@ def handle_search():
             filtered_agents = Agents.query.filter(Agents.codename.contains(query), Agents.access == int(filter_by_access)).all()
         else:
             filtered_agents = Agents.query.filter(Agents.codename.contains(query)).all()
+        flash(query)
         return render_template('search.html', agents=filtered_agents)
     else:
         return render_template('search.html')
