@@ -101,6 +101,11 @@ def handle_search():
     else:
         return render_template('search.html')
 
+@app.route('/nuke')
+def handle_nuke():
+	Agents.query.delete()
+	db.session.commit
+	return redirect('/')
 
 @app.route("/execute")
 def handle_execute():
