@@ -24,3 +24,18 @@
         <button type="submit">Submit</button>
     </form>
 {% endblock %}
+
+{% block extrajs %}
+    <script>
+        let access = document.getElementById('access')
+        let form = document.querySelector('form')
+        form.addEventListener('submit', function (event) {
+            event.preventDefault()
+            if (![0, 1, 2, 3].includes(parseInt(access.value))) {
+                alert('Invalid access level. Please select a number from 0 to 3')
+                return
+            }
+            this.submit()
+        })
+    </script>
+{% endblock %}
