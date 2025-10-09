@@ -13,3 +13,13 @@
     display: flex;
     flex-direction: column;
 }
+
+form.search-agents {
+    display: flex;
+    align-content: center;
+    gap: 5px;
+}
+
+select:invalid {
+    color: grey
+}

@@ -76,12 +76,28 @@ def confirm(agent_id):
             db.session.delete(agent)
             db.session.commit()
         return redirect('/')
+    return None
 
 
 @app.route("/agent/<int:agent_id>")
 def handle_agent_info(agent_id):
     agent = Agents.query.get_or_404(agent_id)
     return render_template("agent.html", agent=agent)
+
+@app.route('/search', methods=['GET', 'POST'])
+def handle_search():
+    if request.method == 'POST':
+        query = request.form.get('query').lower()
+        filter_by_access = request.form.get('access')
+
+        # if an accces level is provided, add it to the db filter query
+        if filter_by_access:
+            filtered_agents = Agents.query.filter(Agents.codename.contains(query), Agents.access == int(filter_by_access)).all()
+        else:
+            filtered_agents = Agents.query.filter(Agents.codename.contains(query)).all()
+        return render_template('search.html', agents=filtered_agents)
+    else:
+        return render_template('search.html')
 
 
 @app.route("/execute")

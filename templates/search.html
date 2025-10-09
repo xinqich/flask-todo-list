@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block content %}
+    <h1>Search</h1>
+    <form action="/search" method="post" class="search-agents">
+        <input type="text" name="query" placeholder="Agent name" id="agentName" required>
+        <select class="access-level" name="access" required>
+            <option value="" disabled selected hidden>Filter by access level</option>
+            <option value="">No filter</option>
+            <option value="0">Restricted</option>
+            <option value="1">Standart</option>
+            <option value="2">Secret</option>
+            <option value="3">Super Secret</option>
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+
+    {% if agents %}
+        <ul class="search-result">
+            {% for agent in agents %}
+                <li><a href="agent/{{ agent.id }}">{{ agent.codename }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>We could find anything matching your filters. Try a different search.</p>
+    {% endif %}
+{% endblock %}
