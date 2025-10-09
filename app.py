@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, redirect, flash
+import random
+from flask import Flask, render_template, request, redirect, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
+
+from random_agent_data import random_codename, random_phone
 
 app = Flask(__name__)
 app.secret_key = '2fceab9edfcb89c2f5be6b80a40a698afe2e5718'
@@ -61,6 +64,7 @@ def handle_edit(agent_id):
         agent = Agents.query.get_or_404(agent_id)
         return render_template("edit.html", agent=agent)
 
+
 @app.route('/delete/<int:agent_id>')
 def handle_delete(agent_id):
     return redirect(f'/confirm/{agent_id}')
@@ -85,37 +89,55 @@ def handle_agent_info(agent_id):
     agent = Agents.query.get_or_404(agent_id)
     return render_template("agent.html", agent=agent)
 
+
 @app.route('/search', methods=['GET', 'POST'])
 def handle_search():
     if request.method == 'POST':
         query = request.form.get('query').lower()
         filter_by_access = request.form.get('access')
 
-        # if an accces level is provided, add it to the db filter query
         if filter_by_access:
-            filtered_agents = Agents.query.filter(Agents.codename.contains(query), Agents.access == int(filter_by_access)).all()
+            filtered_agents = Agents.query.filter(
+                Agents.codename.contains(query),
+                Agents.access == int(filter_by_access)
+            ).all()
         else:
-            filtered_agents = Agents.query.filter(Agents.codename.contains(query)).all()
+            filtered_agents = Agents.query.filter(
+                Agents.codename.contains(query)
+            ).all()
         flash(query)
         return render_template('search.html', agents=filtered_agents)
     else:
         return render_template('search.html')
 
+
+@app.route("/randomize")
+def handle_randomize():
+    agent_codename = random_codename()
+    a, n = agent_codename.split()
+    data = {
+        "codename": agent_codename,
+        "phone": random_phone(),
+        "email": f"{a.lower()}.{n.lower()}@gmail.com",
+        "access": random.randint(0, 3)
+    }
+    return jsonify(data)
+
+
 @app.route('/nuke')
 def handle_nuke():
-	Agents.query.delete()
-	db.session.commit
-	return redirect('/')
+    Agents.query.delete()
+    db.session.commit()
+    return redirect('/')
+
 
 @app.route("/execute")
 def handle_execute():
     con = db.engine.connect()
-    con.execute(text('''
-        DELETE FROM agents where id = 4 or id = 5
-    '''))
+    con.execute(text('DELETE FROM agents WHERE id = 4 OR id = 5'))
     con.commit()
     return redirect('/')
 
+
 if __name__ == "__main__":
     app.run(debug=True)
-

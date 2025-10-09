@@ -19,7 +19,7 @@
         </div>
         <div class="field">
             <label for="access">Access level:</label>
-            <select name="access" id="" required>
+            <select name="access" id="access" required>
                 <option value="" disabled selected hidden>Choose an access level</option>
                 <option value="0">Restricted</option>
                 <option value="1">Standart</option>
@@ -28,16 +28,23 @@
             </select>
         </div>
         <button type="submit" value="normal" name="method">Submit</button>
-        <button type="submit" value="random" name="method" id="randomize">Randomize!</button>
+        <button type="button" id="randomize">Randomize!</button>
+
     </form>
 {% endblock %}
 
 {% block extrajs %}
-    <script>
-        let button = document.getElementById('randomize')
-        let form = document.querySelector('form')
-        button.addEventListener('click', () => {
-            form.submit()
-        })
-    </script>
+<script>
+    document.getElementById('randomize').addEventListener('click', async () => {
+        const res = await fetch('/randomize');
+        if (!res.ok) return alert('Failed to get random agent data');
+        const data = await res.json();
+
+        // Fill the fields
+        document.getElementById('codename').value = data.codename;
+        document.getElementById('phone').value = data.phone;
+        document.getElementById('email').value = data.email;
+        document.getElementById('access').value = data.access;
+    });
+</script>
 {% endblock %}
