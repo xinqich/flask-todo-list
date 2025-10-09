@@ -10,15 +10,14 @@
         <li>Email (for encrypted messages): {{ agent.email }}</li>
         <li>
             Access level:
-            {% if agent.access == 0 %}
-                Standart
-            {% endif %}
             {% if agent.access == 1 %}
-                Secret
-            {% endif %}
-            {% if agent.access == 2 %}
-                Super Secret
-            {% endif %}
+            Standart
+            {% elif agent.access == 2 %}
+            Secret
+            {% elif agent.access == 3 %}
+            Super Secret
+            {% elif agent.access == 0 %}
+            Restricted
         </li>
     </ul>
 {% endblock %}

@@ -12,15 +12,18 @@
                     <li>Personal id: {{ agent.id }}</li>
                     <li>Phone (for emergency calls): {{ agent.phone }}</li>
                     <li>Email (for encrypted messages): {{ agent.email }}</li>
-                    <li>Access level: {% if agent.access == 0 %}
+                    <li>
+                        Access level:
+                        {% if agent.access == 1 %}
                         Standart
-                    {% elif agent.access == 1 %}
+                        {% elif agent.access == 2 %}
                         Secret
-                    {% elif agent.access == 2 %}
+                        {% elif agent.access == 3 %}
                         Super Secret
-                    {% else %}
+                        {% elif agent.access == 0 %}
                         Restricted
-                    {% endif %} </li>
+                        {% endif %}
+                    </li>
                 </ul>
             </li>
         {% endfor %}
