@@ -1,5 +1,5 @@
 import random
-from flask import Flask, render_template, request, redirect, flash, jsonify
+from flask import Flask, render_template, request, redirect, flash, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 
@@ -92,6 +92,7 @@ def handle_agent_info(agent_id):
 
 @app.route('/search', methods=['GET', 'POST'])
 def handle_search():
+    session.pop('_flashes', None)
     if request.method == 'POST':
         query = request.form.get('query').lower()
         filter_by_access = request.form.get('access')
