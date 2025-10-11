@@ -20,6 +20,9 @@
             Restricted
             {% endif %}
         </li>
+        <li class="not-in-list"></li>
+        <li class="not-in-list"><a href="mailto:{{ agent.email }}" target="_blank">Write an urgent message</a></li>
+        <li class="not-in-list"><a href="/delete/{{ agent.id }}" class="delete-agent">Delete this agent</a></li>
     </ul>
-    <a href="mailto:{{ agent.email }}" target="_blank">Write an urgent message</a>
+
 {% endblock %}
