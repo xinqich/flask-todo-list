@@ -23,7 +23,7 @@
     {% if agents %}
         <ul class="search-result">
             {% for agent in agents %}
-                <li><a href="agent/{{ agent.id }}">{{ agent.codename }}</a></li>
+                <li><a href="agent/{{ agent.id }}" target="_blank">{{ agent.codename }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
