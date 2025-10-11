@@ -23,3 +23,29 @@ form.search-agents {
 select:invalid {
     color: grey
 }
+
+.header {
+    background: #222;
+    padding: 10px;
+}
+
+.header .nav-menu {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.header .nav-menu .nav-button {
+    padding: 5px;
+    color: white;
+}
+
+.header .nav-menu .nav-button .nav-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header .nav-menu .nav-button .nav-link:visited {
+    color: inherit;
+}
