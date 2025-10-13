@@ -7,7 +7,7 @@
     <ul>
         {% for agent in agents %}
             <li>
-                <b>{{ agent.codename }}</b>
+                <a href="/agent/{{ agent.id }}"><b>{{ agent.codename }}</b></a>
                 <ul>
                     <li>Personal id: {{ agent.id }}</li>
                     <li>Phone (for emergency calls): {{ agent.phone }}</li>
