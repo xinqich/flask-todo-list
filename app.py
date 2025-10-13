@@ -132,13 +132,5 @@ def handle_nuke():
     return redirect('/')
 
 
-@app.route("/execute")
-def handle_execute():
-    con = db.engine.connect()
-    con.execute(text('DELETE FROM agents WHERE id = 4 OR id = 5'))
-    con.commit()
-    return redirect('/')
-
-
 if __name__ == "__main__":
     app.run(debug=True)
